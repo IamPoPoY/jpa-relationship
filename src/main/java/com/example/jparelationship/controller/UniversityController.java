@@ -15,15 +15,29 @@ public class UniversityController {
     @Autowired
     UniversityService universityService;
 
-    @GetMapping
+    @GetMapping("/getAllUniversities")
     public List<University> getUniversity() {
 
         return universityService.getAllUniversities();
     }
 
-    @PostMapping
+    @PostMapping("/addUniversity")
     public String addUniversity(@RequestBody UniversityDTO universityDTO) {
         return universityService.addUniversity(universityDTO);
     }
+
+    @PutMapping("/editUniversity/{id}")
+    public String editUniversity(@PathVariable Integer id,@RequestBody UniversityDTO universityDTO){
+        return universityService.editUniversity(id,universityDTO);
+    }
+    @GetMapping("/getUniversity/{id}")
+    public University getUniversity(@PathVariable Integer id){
+        return universityService.getUniversity(id);
+    }
+    @DeleteMapping("/deleteUniversity/{id}")
+    public String deleteUniversity(@PathVariable Integer id){
+        return universityService.deleteUniversity(id);
+    }
+
 
 }

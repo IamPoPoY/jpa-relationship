@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 
 @Service
 public class UniversityService {
@@ -30,10 +32,54 @@ public class UniversityService {
         address.setStreet(universityDTO.getStreet());
         address.setHome(universityDTO.getHome());
         Address savedAddress = addressRepository.save(address);
+
         University university = new University();
         university.setAddress(savedAddress);
         university.setName(universityDTO.getName());
         universityRepository.save(university);
         return "University added";
     }
+
+    public String editUniversity(Integer id, UniversityDTO universityDTO) {
+        Optional<University> optionalUniversity = universityRepository.findById(id);
+        if (optionalUniversity.isPresent()) {
+            University university = optionalUniversity.get();
+            university.setName(universityDTO.getName());
+
+            Address address = university.getAddress();
+            address.setHome(universityDTO.getHome());
+            address.setDistrict(universityDTO.getDistrict());
+            address.setCity(universityDTO.getCity());
+            address.setStreet(universityDTO.getStreet());
+            university.setAddress(address);
+            addressRepository.save(address);
+
+            universityRepository.save(university);
+            return "university edited";
+        }
+        return "university not found";
+
+
+    }
+
+    public University getUniversity(Integer id) {
+        Optional<University> optionalUniversity = universityRepository.findById(id);
+        if (optionalUniversity.isPresent()) {
+            University university = optionalUniversity.get();
+            return university;
+        }
+        return null;
+
+    }
+
+    public String deleteUniversity(Integer id) {
+        Optional<University> optionalUniversity = universityRepository.findById(id);
+        if (optionalUniversity.isPresent()) {
+            universityRepository.deleteById(id);
+            return "university deleted";
+        }
+        return "university not found";
+
+    }
+
 }
