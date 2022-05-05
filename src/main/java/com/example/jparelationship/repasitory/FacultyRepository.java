@@ -4,5 +4,5 @@ import com.example.jparelationship.entity.Faculty;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FacultyRepository extends JpaRepository<Faculty,Integer> {
-
+boolean existsByNameAndUniversityId(String name, Integer university_id);
 }

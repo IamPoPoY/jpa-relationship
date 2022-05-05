@@ -18,17 +18,19 @@ public class FacultyService {
     UniversityRepository universityRepository;
 
     public String addFaculty(FacultyDTO facultyDTO) {
-        Faculty faculty=new Faculty();
+        if (facultyRepository.existsByNameAndUniversityId(facultyDTO.getName(),
+                facultyDTO.getUniversityId())) {
+            return "faculty already exist";
+        }
+        Faculty faculty = new Faculty();
         faculty.setName(facultyDTO.getName());
         Optional<University> optionalUniversity = universityRepository.findById(facultyDTO.getUniversityId());
-        if (optionalUniversity.isPresent()){
+        if (optionalUniversity.isPresent()) {
             University university = optionalUniversity.get();
             faculty.setUniversity(university);
             facultyRepository.save(faculty);
-            return "faculty saved";
 
         }
-        return "faculty already exist";
-
+        return "faculty saved";
     }
 }
