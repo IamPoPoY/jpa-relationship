@@ -23,6 +23,4 @@ public class Group {
     @ManyToOne
     private Faculty faculty;
 
-    @OneToMany
-    private List<Student> Student;
 }

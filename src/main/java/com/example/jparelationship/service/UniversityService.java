@@ -64,11 +64,7 @@ public class UniversityService {
 
     public University getUniversity(Integer id) {
         Optional<University> optionalUniversity = universityRepository.findById(id);
-        if (optionalUniversity.isPresent()) {
-            University university = optionalUniversity.get();
-            return university;
-        }
-        return null;
+        return optionalUniversity.orElse(null);
 
     }
 

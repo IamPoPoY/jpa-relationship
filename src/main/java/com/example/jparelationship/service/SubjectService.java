@@ -26,8 +26,7 @@ public class SubjectService {
     }
 
     public List<Subject> getSubjects() {
-        List<Subject> subjectList = subjectRepository.findAll();
-        return subjectList;
+        return subjectRepository.findAll();
 
     }
 
@@ -45,12 +44,7 @@ public class SubjectService {
 
     public Subject getSubject(Integer id) {
         Optional<Subject> optionalSubject = subjectRepository.findById(id);
-        if (optionalSubject.isPresent()) {
-            Subject subject = optionalSubject.get();
-            return subject;
-        }
-        Subject subject = new Subject();
-        return subject;
+        return optionalSubject.orElseGet(Subject::new);
     }
 
     public String deleteSubect(Integer id) {
