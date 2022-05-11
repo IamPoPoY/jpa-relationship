@@ -25,15 +25,23 @@ public class GroupController {
     public Group getGroupById(@PathVariable Integer id) {
         return groupService.getGroupById(id);
     }
+
     @GetMapping("/getAllGoupsByFacultyId/{facultyId}")
-    public List<Group> getAllGoupsByFacultyId(@PathVariable Integer facultyId){
-        return groupService.getAllGoupsByFacultyId(facultyId);
+    public List<Group> getAllGoupsByFacultyId(@PathVariable Integer facultyId) {
+        return groupService.getAllGroupsByFacultyId(facultyId);
     }
 
     @PostMapping("/addGroup")
-    public String addGroup(@RequestBody GroupDTO groupDTO){
+    public String addGroup(@RequestBody GroupDTO groupDTO) {
         return groupService.addGroup(groupDTO);
     }
-
+    @PutMapping("/editGroup/{id}")
+    public Group editGroup(@PathVariable Integer id,@RequestBody GroupDTO groupDTO){
+        return groupService.editGroup(id,groupDTO);
+    }
+    @DeleteMapping("/deleteGroup/{id}")
+    public String deleteGroup(@PathVariable Integer id){
+        return groupService.deleteGroup(id);
+    }
 }
 

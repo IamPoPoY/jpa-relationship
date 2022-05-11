@@ -62,7 +62,11 @@ public class FacultyService {
     }
 
     public List<Faculty> getAllFacultiesByUniversityId(Integer universityId) {
-        facultyRepository.findAllByUniversityId(universityId);
+        List<Faculty> allByUniversityId = facultyRepository.findAllByUniversityId(universityId);
+        if (!allByUniversityId.isEmpty()){
+            return allByUniversityId;
+        }
+
         return null;
     }
 }
