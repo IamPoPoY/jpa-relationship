@@ -32,6 +32,10 @@ public class FacultyController {
     public List<Faculty> getAllFacultiesByUniversityId(@PathVariable Integer universityId){
         return facultyService.getAllFacultiesByUniversityId(universityId);
     }
+    @DeleteMapping("/deleteFaculty/{id}")
+    public String deleteFaculty(@PathVariable Integer id){
+       return facultyService.deleteFaculty(id);
+    }
 
 
 }

@@ -54,10 +54,7 @@ public class FacultyService {
 
     public Faculty getFacultyById(Integer id) {
         Optional<Faculty> optionalFaculty = facultyRepository.findById(id);
-        if (optionalFaculty.isPresent()){
-            return optionalFaculty.get();
-        }
-        return new Faculty();
+        return optionalFaculty.orElseGet(Faculty::new);
 
     }
 
@@ -68,5 +65,14 @@ public class FacultyService {
         }
 
         return null;
+    }
+
+    public String deleteFaculty(Integer id) {
+        Optional<Faculty> optionalFaculty = facultyRepository.findById(id);
+        if (optionalFaculty.isPresent()) {
+            facultyRepository.deleteById(id);
+            return "faculty deleted";
+        }
+        return "faculty not found";
     }
 }
